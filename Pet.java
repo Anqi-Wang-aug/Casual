@@ -1,3 +1,6 @@
+/*This is a definition of the class Pet
+  Created by Picka
+*/
 import java.util.Timer;
 import java.util.TimerTask;
 
