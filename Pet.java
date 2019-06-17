@@ -1,86 +1,52 @@
-/*This is a definition of the class Pet
-  Created by Picka
+/*This is an interface for simulating an Animal
+ *Normally any class extends the interface would have several variables:
+ *	String name, int hunger, int thirst, int energy, int mood
+ *Actions listed in this interface have effect on these variables 
 */
-import java.util.Timer;
-import java.util.TimerTask;
 
-public class Pet {
-	private int fed;
-	private int thirst;
-	private int wantPlay;
-	private boolean dead;
+public interface Pet {
 	
-	public Pet() {
-		fed = 100;
-		thirst = 100;
-		wantPlay = 100;
-		dead = false;
-	}
+	/*feedFood() simulates feeding. 
+	 *It increases or decreases the hunger, depending on how the program is designed
+	*/
+	public void feedFood();
 	
-	public void feedFood() {
-		if(dead!=true) fed = fed+3;
-	}
+	/*giveWater() simulates giving water to the animal. 
+	 * It increases or decreases thirst, depending on how the program is designed
+	 */
+	public void giveWater();
 	
-	public void giveWater() {
-		if(dead!=true) thirst = thirst+3;
-	}
+	/*sleep() simulates the normal sleeping process
+	 * It increases or decreases energy, depending on how the program is designed
+	 */
+	public void sleep();
 	
-	public void play() {
-		if(dead!=true) wantPlay = wantPlay+3;
-	}
+	//play() elevates the mood (increases mood variable) while also consuming energy(decreases energy variable)
+	public void play();
 	
-	public void consume() {
-		Timer period = new Timer();
-		period.schedule(new TimerTask() {
-			public void run() {
-			fed = fed-3;
-			thirst = thirst-3;
-			wantPlay = wantPlay-3;
-			System.out.println(fed);
-			}
-		}, 1000,1000);
-	}
+	/*consume() is like the normal metabolism process
+	 * It has effects on variable hunger, thirst and energy
+	 */
+	public void consume();
 	
-	public void death() {
-		Timer life = new Timer();
-		life.schedule(new TimerTask() {
-			public void run() {
-				System.out.println("The pet is dead");
-				System.out.println(getFed());
-				dead = true;
-			}
-			
-		}, 30000);
-	}
+	//The virtual animal is not immortal. It has a life time.
+	public void life();
 	
-	public int getFed() {
-		return fed;
-	}
+	/*death() is like the natural death of any organism. 
+	 * It comes once life() finishes
+	 * The program would print out a message telling the "animal" is dead, the consume() should also stop executing 
+	 * and except setName() no action would affect those variables 
+	*/
+	public void death();
 	
-	public int getThirst() {
-		return thirst;
-	}
+	//Ideally the system would print out messages during some of the actions above
+	public void voice();
 	
-	public void getWantPlay() {
-		if(wantPlay<50) System.out.println("The pet really wants to play");
-		else if (wantPlay<80) System.out.println("The pet is a little bit lonely");
-		else System.out.println("The pet is happy");
-	}
+	//It changes the name of the animal
+	public void setName();
 	
-	public boolean getDead() {
-		return dead;
-	}
+	//Program should print out all information of the animal
+	public void getInfo();
 	
-	public void getInfo() {
-		if(dead==false) {
-			System.out.println("Hunger Level: "+fed);
-			System.out.println("Thirst Level: "+thirst);
-			if(wantPlay<50) System.out.println("The pet really wants to play");
-			else if(wantPlay<80) System.out.println("The pet is a little lonely");
-			else System.out.println("The pet is happy");
-		}
-		else System.out.println("The pet is dead and no data could be changed");
 
-	}
 }
-
